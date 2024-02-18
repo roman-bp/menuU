@@ -2,19 +2,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const cardContainer = document.getElementById('cardContainer');
     const modal = document.getElementById('myModal');
     const closeModal = document.getElementById('closeModal');
-    const modalContent = document.getElementById('modalContent');
+    const modalContent = document.getElementById('cartContent');
+    const cartButton = document.getElementById('cartButton');
     const cartList = document.getElementById('cartList');
-    const cartCounter = document.getElementById('cartCounter');
 
-    const selectedCards = new Map(); // Змінив на Map для збереження кількості вибору кожної картки
+    const selectedCards = new Map(); // Заменено Set на Map для учета количества выборов
 
-    cardContainer.addEventListener('click', function (event) {
-        const target = event.target;
-        if (target.classList.contains('card-link')) {
-            const cardData = JSON.parse(target.dataset.card);
-            displayModalContent(cardData);
-            modal.style.display = 'block';
-        }
+    cartButton.addEventListener('click', function () {
+        updateCartUI();
+        modal.style.display = 'block';
     });
 
     closeModal.addEventListener('click', function () {
@@ -24,18 +20,6 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('click', function (event) {
         if (event.target === modal) {
             modal.style.display = 'none';
-        }
-    });
-
-    cartList.addEventListener('click', function (event) {
-        const target = event.target;
-        if (target.classList.contains('remove-from-cart')) {
-            const cardTitle = target.dataset.cardTitle;
-            selectedCards.set(cardTitle, (selectedCards.get(cardTitle) || 0) - 1); // Зменшуємо лічильник кожного разу, коли картка видаляється з корзини
-            if (selectedCards.get(cardTitle) <= 0) {
-                selectedCards.delete(cardTitle);
-            }
-            updateCartUI();
         }
     });
 
@@ -75,7 +59,13 @@ document.addEventListener('DOMContentLoaded', function () {
             const addToCartButton = document.createElement('button');
             addToCartButton.textContent = 'Добавить в корзину';
             addToCartButton.addEventListener('click', function () {
-                selectedCards.set(cardData.title, (selectedCards.get(cardData.title) || 0) + 1); // Збільшуємо лічильник кожного разу, коли картка додається в корзину
+                if (selectedCards.has(cardData.title)) {
+                    // Если карточка уже выбиралась, увеличиваем счетчик
+                    selectedCards.set(cardData.title, selectedCards.get(cardData.title) + 1);
+                } else {
+                    // Иначе, добавляем счетчик в единицу
+                    selectedCards.set(cardData.title, 1);
+                }
                 updateCartUI();
             });
 
@@ -127,50 +117,36 @@ document.addEventListener('DOMContentLoaded', function () {
         return details;
     }
 
-    function displayModalContent(cardData) {
-        modalContent.innerHTML = '';
-        if (cardData.additionalField1 && Array.isArray(cardData.additionalField1)) {
-            const sliderContainer = document.createElement('div');
-            sliderContainer.className = 'slider-container-modal';
-
-            cardData.additionalField1.forEach(imageSrc => {
-                const image = document.createElement('img');
-                image.src = imageSrc;
-                image.alt = 'Изображение слайдера';
-                sliderContainer.appendChild(image);
-            });
-
-            modalContent.appendChild(sliderContainer);
-        } else {
-            const additionalField = document.createElement('p');
-            additionalField.textContent = cardData.additionalField1;
-            modalContent.appendChild(additionalField);
-        }
-
-        modalContent.innerHTML += `
-            <p>Сложность: ${cardData.difficulty}</p>
-            <p>Время приготовления: ${cardData.time}</p>
-            <p>Калорийность: ${cardData.calories}</p>
-        `;
-    }
-
     function updateCartUI() {
+        const cartCounter = document.getElementById('cartCounter');
+        let totalCount = 0;
+
         cartList.innerHTML = '';
         selectedCards.forEach((count, cardTitle) => {
             const cartItem = document.createElement('li');
-            cartItem.textContent = `${cardTitle} (${count})`; // Відображення кількості в корзині
-            cartItem.title = `Кількість: ${count}`;
+            cartItem.textContent = `${cardTitle} (выбрано ${count} раз)`;
 
             const removeFromCartButton = document.createElement('button');
             removeFromCartButton.textContent = 'Удалить из корзины';
             removeFromCartButton.className = 'remove-from-cart';
             removeFromCartButton.dataset.cardTitle = cardTitle;
 
+            removeFromCartButton.addEventListener('click', function () {
+                // Уменьшаем счетчик или удаляем карточку из выбранных
+                if (count > 1) {
+                    selectedCards.set(cardTitle, count - 1);
+                } else {
+                    selectedCards.delete(cardTitle);
+                }
+                updateCartUI();
+            });
+
             cartItem.appendChild(removeFromCartButton);
             cartList.appendChild(cartItem);
+
+            totalCount += count;
         });
 
-        // Оновлюємо лічильник товарів у корзині
-        cartCounter.textContent = Array.from(selectedCards.values()).reduce((sum, count) => sum + count, 0);
+        cartCounter.textContent = totalCount; // Обновляем общий счетчик
     }
 });
