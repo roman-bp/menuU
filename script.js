@@ -5,8 +5,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const modalContent = document.getElementById('cartContent');
     const cartButton = document.getElementById('cartButton');
     const cartList = document.getElementById('cartList');
+    const cartCounter = document.getElementById('cartCounter');
+    const cartCounterModal = document.getElementById('cartCounterModal');
 
-    const selectedCards = new Map(); // Заменено Set на Map для учета количества выборов
+    const selectedCards = new Map();
 
     cartButton.addEventListener('click', function () {
         updateCartUI();
@@ -60,10 +62,8 @@ document.addEventListener('DOMContentLoaded', function () {
             addToCartButton.textContent = 'Добавить в корзину';
             addToCartButton.addEventListener('click', function () {
                 if (selectedCards.has(cardData.title)) {
-                    // Если карточка уже выбиралась, увеличиваем счетчик
                     selectedCards.set(cardData.title, selectedCards.get(cardData.title) + 1);
                 } else {
-                    // Иначе, добавляем счетчик в единицу
                     selectedCards.set(cardData.title, 1);
                 }
                 updateCartUI();
@@ -118,7 +118,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function updateCartUI() {
-        const cartCounter = document.getElementById('cartCounter');
         let totalCount = 0;
 
         cartList.innerHTML = '';
@@ -132,7 +131,6 @@ document.addEventListener('DOMContentLoaded', function () {
             removeFromCartButton.dataset.cardTitle = cardTitle;
 
             removeFromCartButton.addEventListener('click', function () {
-                // Уменьшаем счетчик или удаляем карточку из выбранных
                 if (count > 1) {
                     selectedCards.set(cardTitle, count - 1);
                 } else {
@@ -147,6 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
             totalCount += count;
         });
 
-        cartCounter.textContent = totalCount; // Обновляем общий счетчик
+        cartCounter.textContent = totalCount;
+        cartCounterModal.textContent = totalCount;
     }
 });
