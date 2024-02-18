@@ -3,6 +3,13 @@
     "photoFileName": "bor.jpg",
     "title": "Борщ Український",
     
+    "title": "Борщ український",
+    "description": "Описание или дополнительная информация о фотографии 2.",
+    "additionalField1": "img/borsch_image.jpg",
+    "difficulty": "Легкая",
+    "time": "45 минут",
+    "calories": "250 ккал",
+    
     "additionalField1": [
       "img/200/200_1.jpg",
       "img/200/200_2.jpg",

@@ -58,6 +58,12 @@ document.addEventListener('DOMContentLoaded', function () {
             detailsLink.textContent = 'Подробнее';
             detailsLink.dataset.card = JSON.stringify(cardData);
 
+            detailsLink.addEventListener('click', function (event) {
+                event.preventDefault();
+                displayModalContent(cardData);
+                modal.style.display = 'block';
+            });
+
             const addToCartButton = document.createElement('button');
             addToCartButton.textContent = 'Добавить в корзину';
             addToCartButton.addEventListener('click', function () {
@@ -147,5 +153,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
         cartCounter.textContent = totalCount;
         cartCounterModal.textContent = totalCount;
+    }
+
+    function displayModalContent(cardData) {
+        modalContent.innerHTML = '';
+
+        const modalTitle = document.createElement('h2');
+        modalTitle.textContent = cardData.title;
+
+        const modalDescription = document.createElement('p');
+        modalDescription.textContent = cardData.description;
+
+        const modalDetails = createDetailsElement(cardData);
+
+        modalContent.appendChild(modalTitle);
+        modalContent.appendChild(modalDescription);
+        modalContent.appendChild(modalDetails);
     }
 });
