@@ -113,3 +113,18 @@ a:visited {
     width: 100%;
     scroll-snap-align: start;
 }
+/* Ваші стилі */
+
+.cart-container {
+    margin-top: 20px;
+}
+
+#cartList {
+    list-style-type: none;
+    padding: 0;
+}
+
+.remove-from-cart {
+    margin-left: 10px;
+    cursor: pointer;
+}

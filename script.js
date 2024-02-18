@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const modal = document.getElementById('myModal');
     const closeModal = document.getElementById('closeModal');
     const modalContent = document.getElementById('modalContent');
+    const cartList = document.getElementById('cartList');
+
+    const selectedCards = new Set();
 
     cardContainer.addEventListener('click', function (event) {
         const target = event.target;
@@ -20,6 +23,15 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('click', function (event) {
         if (event.target === modal) {
             modal.style.display = 'none';
+        }
+    });
+
+    cartList.addEventListener('click', function (event) {
+        const target = event.target;
+        if (target.classList.contains('remove-from-cart')) {
+            const cardId = target.dataset.cardId;
+            selectedCards.delete(cardId);
+            updateCartUI();
         }
     });
 
@@ -53,12 +65,20 @@ document.addEventListener('DOMContentLoaded', function () {
             const detailsLink = document.createElement('a');
             detailsLink.href = '#';
             detailsLink.className = 'card-link';
-            detailsLink.textContent = 'Детальніше';
+            detailsLink.textContent = 'Подробнее';
             detailsLink.dataset.card = JSON.stringify(cardData);
+
+            const addToCartButton = document.createElement('button');
+            addToCartButton.textContent = 'Добавить в корзину';
+            addToCartButton.addEventListener('click', function () {
+                selectedCards.add(cardData.title);
+                updateCartUI();
+            });
 
             cardContent.appendChild(title);
             cardContent.appendChild(description);
             cardContent.appendChild(detailsLink);
+            cardContent.appendChild(addToCartButton);
 
             card.appendChild(img);
             card.appendChild(cardContent);
@@ -128,5 +148,21 @@ document.addEventListener('DOMContentLoaded', function () {
             <p>Время приготовления: ${cardData.time}</p>
             <p>Калорийность: ${cardData.calories}</p>
         `;
+    }
+
+    function updateCartUI() {
+        cartList.innerHTML = '';
+        selectedCards.forEach(cardTitle => {
+            const cartItem = document.createElement('li');
+            cartItem.textContent = cardTitle;
+            
+            const removeFromCartButton = document.createElement('button');
+            removeFromCartButton.textContent = 'Удалить из корзины';
+            removeFromCartButton.className = 'remove-from-cart';
+            removeFromCartButton.dataset.cardId = cardTitle;
+
+            cartItem.appendChild(removeFromCartButton);
+            cartList.appendChild(cartItem);
+        });
     }
 });
