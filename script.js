@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
             cartItem.textContent = cardTitle;
             
             const removeFromCartButton = document.createElement('button');
-            removeFromCartButton.textContent = 'Удалить из корзины';
+            removeFromCartButton.textContent = 'ВІДМОВИТИСЬ';
             removeFromCartButton.className = 'remove-from-cart';
             removeFromCartButton.dataset.cardId = cardTitle;
 
