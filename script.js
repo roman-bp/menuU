@@ -4,8 +4,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const closeModal = document.getElementById('closeModal');
     const modalContent = document.getElementById('modalContent');
     const cartList = document.getElementById('cartList');
+    const cartCounter = document.getElementById('cartCounter');
 
-    const selectedCards = new Map();
+    const selectedCards = new Map(); // Змінив на Map для збереження кількості вибору кожної картки
 
     cardContainer.addEventListener('click', function (event) {
         const target = event.target;
@@ -26,24 +27,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    cardContainer.addEventListener('click', function (event) {
-        const target = event.target;
-        if (target.classList.contains('add-to-cart')) {
-            const cardTitle = target.dataset.cardTitle;
-            selectedCards.set(cardTitle, (selectedCards.get(cardTitle) || 0) + 1);
-            updateCartUI();
-        }
-    });
-
     cartList.addEventListener('click', function (event) {
         const target = event.target;
         if (target.classList.contains('remove-from-cart')) {
             const cardTitle = target.dataset.cardTitle;
-            if (selectedCards.has(cardTitle)) {
-                selectedCards.set(cardTitle, selectedCards.get(cardTitle) - 1);
-                if (selectedCards.get(cardTitle) === 0) {
-                    selectedCards.delete(cardTitle);
-                }
+            selectedCards.set(cardTitle, (selectedCards.get(cardTitle) || 0) - 1); // Зменшуємо лічильник кожного разу, коли картка видаляється з корзини
+            if (selectedCards.get(cardTitle) <= 0) {
+                selectedCards.delete(cardTitle);
             }
             updateCartUI();
         }
@@ -84,8 +74,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const addToCartButton = document.createElement('button');
             addToCartButton.textContent = 'Добавить в корзину';
-            addToCartButton.className = 'add-to-cart';
-            addToCartButton.dataset.cardTitle = cardData.title;
+            addToCartButton.addEventListener('click', function () {
+                selectedCards.set(cardData.title, (selectedCards.get(cardData.title) || 0) + 1); // Збільшуємо лічильник кожного разу, коли картка додається в корзину
+                updateCartUI();
+            });
 
             cardContent.appendChild(title);
             cardContent.appendChild(description);
@@ -164,20 +156,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function updateCartUI() {
         cartList.innerHTML = '';
-
-        const cardCounts = {};
-
         selectedCards.forEach((count, cardTitle) => {
-            if (cardCounts[cardTitle]) {
-                cardCounts[cardTitle] += count;
-            } else {
-                cardCounts[cardTitle] = count;
-            }
-        });
-
-        for (const [cardTitle, count] of Object.entries(cardCounts)) {
             const cartItem = document.createElement('li');
-            cartItem.textContent = `${cardTitle} (Количество: ${count})`;
+            cartItem.textContent = `${cardTitle} (${count})`; // Відображення кількості в корзині
+            cartItem.title = `Кількість: ${count}`;
 
             const removeFromCartButton = document.createElement('button');
             removeFromCartButton.textContent = 'Удалить из корзины';
@@ -186,6 +168,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
             cartItem.appendChild(removeFromCartButton);
             cartList.appendChild(cartItem);
-        }
+        });
+
+        // Оновлюємо лічильник товарів у корзині
+        cartCounter.textContent = Array.from(selectedCards.values()).reduce((sum, count) => sum + count, 0);
     }
 });
