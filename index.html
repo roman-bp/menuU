@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phonebook</title>
+    <style>
+        /* Скрыть текст на кнопках */
+        .buttonLabel {
+            font-size: 0;
+        }
+        H2{
+            color: rgb(101, 101, 40);
+            font-size: 20PX;
+        }
+        /* Показывать только кнопку при наведении */
+        .buttonLabel button {
+            font-size: 16px; /* Установите желаемый размер шрифта */
+            background-color: green;
+            color: aqua;
+            height: 30PX;
+            border-radius: 8PX;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>Експедитори</h1>
+
+    <a href="gruz.html">Вантажники</a>
+    <a href="driver.html">Водіі</a>
+    <a href="magaz.html">Mагазини</a>
+    <div id="contacts"></div>
+
+    <script>
+        // Загрузка данных из внешнего файла
+        fetch('phonebook.json')
+            .then(response => response.json())
+            .then(data => {
+                var contactsDiv = document.getElementById('contacts');
+
+                // Вывод контактов на страницу
+                data.contacts.forEach(contact => {
+                    var contactDiv = document.createElement('div');
+                    contactDiv.innerHTML = `
+                        <h2>${contact.name}</h2>
+                        <span class="buttonLabel"><button onclick="callNumber('${contact.work}')">${contact.work}</button></span>
+                        <span class="buttonLabel"><button onclick="callNumber('${contact.home}')">${contact.home}</button></span>
+                        <hr>
+                    `;
+                    contactsDiv.appendChild(contactDiv);
+                });
+            })
+            .catch(error => console.error('Ошибка загрузки данных:', error));
+
+        // Функция вызова номера
+        function callNumber(phoneNumber) {
+            window.location.href = 'tel:' + phoneNumber;
+        }
+    </script>
+</body>
+</html>
