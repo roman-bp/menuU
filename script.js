@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
             detailsLink.dataset.card = JSON.stringify(cardData);
 
             const addToCartButton = document.createElement('button');
-            addToCartButton.textContent = 'Добавить в корзину';
+            addToCartButton.textContent = 'ЗАМОВИТИ';
             addToCartButton.addEventListener('click', function () {
                 selectedCards.add(cardData.title);
                 updateCartUI();
