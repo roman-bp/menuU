@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const detailsLink = document.createElement('a');
             detailsLink.href = '#';
             detailsLink.className = 'card-link';
-            detailsLink.textContent = 'Подробнее';
+            detailsLink.textContent = 'Детальніше';
             detailsLink.dataset.card = JSON.stringify(cardData);
 
             cardContent.appendChild(title);
