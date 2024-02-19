@@ -8,6 +8,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const cartCounter = document.getElementById('cartCounter');
     const cartCounterModal = document.getElementById('cartCounterModal');
     const sendToTelegramButton = document.getElementById('sendToTelegram');
+    const orderTime = document.getElementById('orderTime');
+    const customerNameInput = document.getElementById('customerName');
+    const customerPhoneInput = document.getElementById('customerPhone');
+    const deliveryAddressInput = document.getElementById('deliveryAddress');
 
     const selectedCards = new Map();
 
@@ -75,15 +79,20 @@ document.addEventListener('DOMContentLoaded', function () {
             modal.style.display = 'block';
         });
 
+        const price = document.createElement('p');
+        price.textContent = `Ціна: ${cardData.price} грн`;
+
         const addToCartButton = document.createElement('button');
         addToCartButton.textContent = 'Добавить в корзину';
         addToCartButton.addEventListener('click', function () {
-            addToCart(cardData.title);
+            addToCart(cardData.title, cardData.price);
             updateCartUI();
         });
 
         cardContent.appendChild(title);
         cardContent.appendChild(description);
+        cardContent.appendChild(details);
+        cardContent.appendChild(price);
         cardContent.appendChild(detailsLink);
         cardContent.appendChild(addToCartButton);
 
@@ -129,11 +138,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function updateCartUI() {
         let totalCount = 0;
+        let totalCost = 0;
 
         cartList.innerHTML = '';
-        selectedCards.forEach((count, cardTitle) => {
+        selectedCards.forEach((data, cardTitle) => {
+            const { count, price } = data;
             const cartItem = document.createElement('li');
-            cartItem.textContent = `${cardTitle} (выбрано ${count} раз)`;
+            cartItem.textContent = `${cardTitle} (выбрано ${count} раз) - ${price * count} грн`;
 
             const removeFromCartButton = document.createElement('button');
             removeFromCartButton.textContent = 'Удалить из корзины';
@@ -149,10 +160,12 @@ document.addEventListener('DOMContentLoaded', function () {
             cartList.appendChild(cartItem);
 
             totalCount += count;
+            totalCost += price * count;
         });
 
         cartCounter.textContent = totalCount;
         cartCounterModal.textContent = totalCount;
+        orderTime.textContent = `Загальна вартість: ${totalCost} грн`;
     }
 
     function displayModalContent(cardData) {
@@ -171,19 +184,20 @@ document.addEventListener('DOMContentLoaded', function () {
         modalContent.appendChild(modalDetails);
     }
 
-    function addToCart(cardTitle) {
+    function addToCart(cardTitle, cardPrice) {
         if (selectedCards.has(cardTitle)) {
-            selectedCards.set(cardTitle, selectedCards.get(cardTitle) + 1);
+            const { count } = selectedCards.get(cardTitle);
+            selectedCards.set(cardTitle, { count: count + 1, price: cardPrice });
         } else {
-            selectedCards.set(cardTitle, 1);
+            selectedCards.set(cardTitle, { count: 1, price: cardPrice });
         }
     }
 
     function removeFromCart(cardTitle) {
         if (selectedCards.has(cardTitle)) {
-            const count = selectedCards.get(cardTitle);
+            const { count } = selectedCards.get(cardTitle);
             if (count > 1) {
-                selectedCards.set(cardTitle, count - 1);
+                selectedCards.set(cardTitle, { count: count - 1, price: selectedCards.get(cardTitle).price });
             } else {
                 selectedCards.delete(cardTitle);
             }
@@ -217,11 +231,34 @@ document.addEventListener('DOMContentLoaded', function () {
     function generateTelegramMessage() {
         let message = 'Замовлення в корзині:\n\n';
 
-        selectedCards.forEach((count, cardTitle) => {
-            message += `${cardTitle}: ${count} шт.\n`;
+        let totalOrderAmount = 0;  
+
+        selectedCards.forEach((data, cardTitle) => {
+            const { count, price } = data;
+            const itemAmount = price * count;  
+            totalOrderAmount += itemAmount;  
+
+            message += `${cardTitle}: ${count} шт. - ${itemAmount} грн\n`;
         });
 
         message += `\nЗагальна кількість: ${cartCounter.textContent} шт.`;
+        message += `\nЗагальна вартість замовлення: ${totalOrderAmount} грн`;
+
+        const customerName = customerNameInput.value.trim();
+        const customerPhone = customerPhoneInput.value.trim();
+        const deliveryAddress = deliveryAddressInput.value.trim();
+
+        if (customerName !== '') {
+            message += `\nІм'я клієнта: ${customerName}`;
+        }
+
+        if (customerPhone !== '') {
+            message += `\nТелефон клієнта: ${customerPhone}`;
+        }
+
+        if (deliveryAddress !== '') {
+            message += `\nАдреса доставки: ${deliveryAddress}`;
+        }
 
         return message;
     }
