@@ -1,29 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <title>Карточка с фото</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Карточка с фото</title>
 </head>
 <body>
 
 <div id="cardContainer"></div>
 
-<div id="cartButton" class="cart-button">
-  Корзина 
-  <span id="cartCounter" class="cart-counter">0</span>
-</div>
+<div id="cartButton" class="cart-button">Корзина<span id="cartCounter" class="cart-counter">0</span></div>
 
 <div id="myModal" class="modal">
-  <div class="modal-content">
-    <span id="closeModal" class="close">&times;</span>
-    <div id="cartContent" class="cart-content">
-      <h2>Корзина</h2>
-      <ul id="cartList" class="cart-list"></ul>
-      <p id="cartCounterModal" class="cart-counter-modal">0</p>
+    <div class="modal-content">
+        <span id="closeModal" class="close">&times;</span>
+        <div id="cartContent" class="cart-content">
+            <h2>Корзина</h2>
+            <ul id="cartList" class="cart-list"></ul>
+            <p id="cartCounterModal" class="cart-counter"></p>
+            <button id="sendToTelegram">Відправити в Telegram</button> <!-- Додана кнопка -->
+        </div>
     </div>
-  </div>
 </div>
 
 <script src="script.js"></script>
