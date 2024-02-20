@@ -1,28 +1,44 @@
 [
   {
-    "photoFileName": "bor.jpg",
     "title": "Борщ Український",
-    "description": "Описание или дополнительная информация о фотографии 2.",
-    "additionalField1": "img/borsch_image.jpg",
-    "difficulty": "Легкая",
-    "time": "45 минут",
-    "calories": "250 ккал",
-    "price": 15
-  },
-  {
-    "photoFileName": "borschPoltava.jpg",
-    "title": "Борщ Полтавський",
-    "description": "Описание или дополнительная информация о фотографии 2.",
-    "additionalField1": [
+    "description": "Традиційний український борщ зі смачними інгредієнтами.",
+    "photoFileName": [
       "img/200/200_1.jpg",
       "img/200/200_2.jpg",
       "img/200/200_3.jpg",
       "img/200/200_4.jpg",
       "img/200/200_5.jpg"
     ],
-    "difficulty": "* * *",
-    "time": "1 час",
-    "calories": "300 ккал",
-    "price": 16
+    "price": 100,
+    "difficulty": "Легкая",
+    "time": "45 минут",
+    "calories": "250 ккал"
+  },
+  {
+    "title": "Пельмені",
+    "description": "Смачні та соковиті пельмені з начинкою.",
+    "photoFileName": [
+            "img/202/202_2.jpg",
+      "img/202/202_3.jpg"
+      
+    ],
+    "price": 80,
+    "difficulty": "Середня",
+    "time": "30 минут",
+    "calories": "300 ккал"
+  },
+  {
+    "title": "Цезар з куркою",
+    "description": "Салат Цезар з додаванням соковитого курячого філе.",
+    "photoFileName": [
+      "img/201/201_1.jpg",
+      "img/201/201_2.jpg",
+      "img/201/201_3.jpg"
+      
+    ],
+    "price": 120,
+    "difficulty": "Легкая",
+    "time": "20 минут",
+    "calories": "350 ккал"
   }
 ]

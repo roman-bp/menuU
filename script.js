@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const cardContainer = document.getElementById('cardContainer');
     const modal = document.getElementById('myModal');
     const closeModal = document.getElementById('closeModal');
-    const modalContent = document.getElementById('cartContent');
     const cartButton = document.getElementById('cartButton');
     const cartList = document.getElementById('cartList');
     const cartCounter = document.getElementById('cartCounter');
@@ -46,15 +45,42 @@ document.addEventListener('DOMContentLoaded', function () {
             const card = createCardElement(cardData);
             cardContainer.appendChild(card);
         });
+
+        // Ініціалізація Slick Slider після створення карток
+        $('.slider-container').slick({
+            infinite: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            prevArrow: '<button class="slick-prev" aria-label="Previous" type="button">&lt;</button>',
+            nextArrow: '<button class="slick-next" aria-label="Next" type="button">&gt;</button>'
+        });
     }
 
     function createCardElement(cardData) {
         const card = document.createElement('div');
         card.className = 'card';
 
-        const img = document.createElement('img');
-        img.src = `img/${cardData.photoFileName}`;
-        img.alt = 'Фото';
+        const imgContainer = document.createElement('div');
+        imgContainer.className = 'img-container';
+
+        if (Array.isArray(cardData.photoFileName)) {
+            const sliderContainer = document.createElement('div');
+            sliderContainer.className = 'slider-container';
+
+            cardData.photoFileName.forEach(imageSrc => {
+                const image = document.createElement('img');
+                image.src = imageSrc;
+                image.alt = 'Фото';
+                sliderContainer.appendChild(image);
+            });
+
+            imgContainer.appendChild(sliderContainer);
+        } else if (cardData.photoFileName.endsWith('.jpg') || cardData.photoFileName.endsWith('.png')) {
+            const image = document.createElement('img');
+            image.src = cardData.photoFileName;
+            image.alt = 'Фото';
+            imgContainer.appendChild(image);
+        }
 
         const cardContent = document.createElement('div');
         cardContent.className = 'card-content';
@@ -64,20 +90,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const description = document.createElement('p');
         description.textContent = cardData.description;
-
-        const details = createDetailsElement(cardData);
-
-        const detailsLink = document.createElement('a');
-        detailsLink.href = '#';
-        detailsLink.className = 'card-link';
-        detailsLink.textContent = 'Подробнее';
-        detailsLink.dataset.card = JSON.stringify(cardData);
-
-        detailsLink.addEventListener('click', function (event) {
-            event.preventDefault();
-            displayModalContent(cardData);
-            modal.style.display = 'block';
-        });
 
         const price = document.createElement('p');
         price.textContent = `Ціна: ${cardData.price} грн`;
@@ -91,49 +103,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         cardContent.appendChild(title);
         cardContent.appendChild(description);
-        cardContent.appendChild(details);
+        cardContent.appendChild(imgContainer);
         cardContent.appendChild(price);
-        cardContent.appendChild(detailsLink);
         cardContent.appendChild(addToCartButton);
 
-        card.appendChild(img);
         card.appendChild(cardContent);
 
         return card;
-    }
-
-    function createDetailsElement(cardData) {
-        const details = document.createElement('div');
-        details.className = 'details';
-
-        if (Array.isArray(cardData.additionalField1)) {
-            const sliderContainer = document.createElement('div');
-            sliderContainer.className = 'slider-container';
-
-            cardData.additionalField1.forEach(imageSrc => {
-                const image = document.createElement('img');
-                image.src = imageSrc;
-                image.alt = 'Изображение слайдера';
-                sliderContainer.appendChild(image);
-            });
-
-            details.appendChild(sliderContainer);
-        } else if (cardData.additionalField1.endsWith('.jpg') || cardData.additionalField1.endsWith('.png')) {
-            const image = document.createElement('img');
-            image.src = cardData.additionalField1;
-            image.alt = 'Изображение';
-            details.appendChild(image);
-        } else {
-            details.innerHTML = `<p>${cardData.additionalField1}</p>`;
-        }
-
-        details.innerHTML += `
-            <p>Сложность: ${cardData.difficulty}</p>
-            <p>Время приготовления: ${cardData.time}</p>
-            <p>Калорийность: ${cardData.calories}</p>
-        `;
-
-        return details;
     }
 
     function updateCartUI() {
@@ -166,22 +142,6 @@ document.addEventListener('DOMContentLoaded', function () {
         cartCounter.textContent = totalCount;
         cartCounterModal.textContent = totalCount;
         orderTime.textContent = `Загальна вартість: ${totalCost} грн`;
-    }
-
-    function displayModalContent(cardData) {
-        modalContent.innerHTML = '';
-
-        const modalTitle = document.createElement('h2');
-        modalTitle.textContent = cardData.title;
-
-        const modalDescription = document.createElement('p');
-        modalDescription.textContent = cardData.description;
-
-        const modalDetails = createDetailsElement(cardData);
-
-        modalContent.appendChild(modalTitle);
-        modalContent.appendChild(modalDescription);
-        modalContent.appendChild(modalDetails);
     }
 
     function addToCart(cardTitle, cardPrice) {
@@ -221,22 +181,22 @@ document.addEventListener('DOMContentLoaded', function () {
                 text: message,
             }),
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Telegram response:', data);
-        })
-        .catch(error => console.error('Error sending to Telegram:', error));
+            .then(response => response.json())
+            .then(data => {
+                console.log('Telegram response:', data);
+            })
+            .catch(error => console.error('Error sending to Telegram:', error));
     }
 
     function generateTelegramMessage() {
         let message = 'Замовлення в корзині:\n\n';
 
-        let totalOrderAmount = 0;  
+        let totalOrderAmount = 0;
 
         selectedCards.forEach((data, cardTitle) => {
             const { count, price } = data;
-            const itemAmount = price * count;  
-            totalOrderAmount += itemAmount;  
+            const itemAmount = price * count;
+            totalOrderAmount += itemAmount;
 
             message += `${cardTitle}: ${count} шт. - ${itemAmount} грн\n`;
         });
