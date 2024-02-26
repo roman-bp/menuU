@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const cardContainer = document.getElementById('cardContainer');
     const modal = document.getElementById('myModal');
     const closeModal = document.getElementById('closeModal');
     const cartButton = document.getElementById('cartButton');
@@ -14,161 +13,130 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const selectedCards = new Map();
 
-    cartButton.addEventListener('click', function () {
-        updateCartUI();
-        modal.style.display = 'block';
-    });
+    setupEventListeners();
+    loadAndDisplayCards('all');
 
-    closeModal.addEventListener('click', function () {
-        modal.style.display = 'none';
-    });
+    function setupEventListeners() {
+        closeModal.addEventListener('click', () => modal.style.display = 'none');
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) modal.style.display = 'none';
+        });
+        cartButton.addEventListener('click', () => {
+            updateCartUI();
+            modal.style.display = 'block';
+        });
+        sendToTelegramButton.addEventListener('click', sendToTelegram);
 
-    window.addEventListener('click', function (event) {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
+        document.getElementById('cardContainer').addEventListener('click', function(event) {
+            if (event.target.tagName === 'BUTTON' && event.target.classList.contains('addToCart')) {
+                const title = event.target.dataset.title;
+                const price = parseFloat(event.target.dataset.price);
+                addToCart(title, price);
+            }
+        });
 
-    sendToTelegramButton.addEventListener('click', function () {
-        sendToTelegram();
-    });
+        document.querySelectorAll('.navbar a').forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                const category = this.getAttribute('href').substring(1);
+                loadAndDisplayCards(category);
+            });
+        });
+    }
 
-    fetch('data.json')
-        .then(response => response.json())
-        .then(createCards)
-        .catch(error => console.error('Помилка при завантаженні даних з JSON:', error));
+    function loadAndDisplayCards(category) {
+        fetch('data.json')
+            .then(response => response.json())
+            .then(data => {
+                const filteredData = category === 'all' ? data : data.filter(card => card.category === category);
+                createCards(filteredData);
+            })
+            .catch(error => console.error('Ошибка при загрузке данных из JSON:', error));
+    }
 
     function createCards(cardsData) {
+        const cardContainer = document.getElementById('cardContainer');
         cardContainer.innerHTML = '';
-
         cardsData.forEach(cardData => {
-            const card = createCardElement(cardData);
-            cardContainer.appendChild(card);
+            const cardElement = createCardElement(cardData);
+            cardContainer.appendChild(cardElement);
         });
-
-        // Ініціалізація Slick Slider після створення карток
-        $('.slider-container').slick({
-            infinite: true,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            prevArrow: '<button class="slick-prev" aria-label="Previous" type="button">&lt;</button>',
-            nextArrow: '<button class="slick-next" aria-label="Next" type="button">&gt;</button>'
-        });
+        initializeCarousel();
     }
 
     function createCardElement(cardData) {
         const card = document.createElement('div');
         card.className = 'card';
-
         const imgContainer = document.createElement('div');
-        imgContainer.className = 'img-container';
-
-        if (Array.isArray(cardData.photoFileName)) {
-            const sliderContainer = document.createElement('div');
-            sliderContainer.className = 'slider-container';
-
-            cardData.photoFileName.forEach(imageSrc => {
-                const image = document.createElement('img');
-                image.src = imageSrc;
-                image.alt = 'Фото';
-                sliderContainer.appendChild(image);
-            });
-
-            imgContainer.appendChild(sliderContainer);
-        } else if (cardData.photoFileName.endsWith('.jpg') || cardData.photoFileName.endsWith('.png')) {
-            const image = document.createElement('img');
-            image.src = cardData.photoFileName;
-            image.alt = 'Фото';
-            imgContainer.appendChild(image);
-        }
-
+        imgContainer.className = 'slider-container';
+        cardData.photoFileName.forEach(src => {
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = cardData.title;
+            imgContainer.appendChild(img);
+        });
         const cardContent = document.createElement('div');
         cardContent.className = 'card-content';
-
-        const title = document.createElement('h2');
-        title.textContent = cardData.title;
-
-        const description = document.createElement('p');
-        description.textContent = cardData.description;
-
-        const price = document.createElement('p');
-        price.textContent = `Ціна: ${cardData.price} грн`;
-
-        const addToCartButton = document.createElement('button');
-        addToCartButton.textContent = 'Добавить в корзину';
-        addToCartButton.addEventListener('click', function () {
-            addToCart(cardData.title, cardData.price);
-            updateCartUI();
-        });
-
-        cardContent.appendChild(title);
-        cardContent.appendChild(description);
-        cardContent.appendChild(imgContainer);
-        cardContent.appendChild(price);
-        cardContent.appendChild(addToCartButton);
-
+        cardContent.innerHTML = `
+            <h2>${cardData.title}</h2>
+            <p>${cardData.description}</p>
+            <p>Цена: ${cardData.price} грн</p>
+            <button class="addToCart" data-title="${cardData.title}" data-price="${cardData.price}">Добавить в корзину</button>
+        `;
+        card.appendChild(imgContainer);
         card.appendChild(cardContent);
-
         return card;
     }
 
-    function updateCartUI() {
-        let totalCount = 0;
-        let totalCost = 0;
-
-        cartList.innerHTML = '';
-        selectedCards.forEach((data, cardTitle) => {
-            const { count, price } = data;
-            const cartItem = document.createElement('li');
-            cartItem.textContent = `${cardTitle} (выбрано ${count} раз) - ${price * count} грн`;
-
-            const removeFromCartButton = document.createElement('button');
-            removeFromCartButton.textContent = 'Удалить из корзины';
-            removeFromCartButton.className = 'remove-from-cart';
-            removeFromCartButton.dataset.cardTitle = cardTitle;
-
-            removeFromCartButton.addEventListener('click', function () {
-                removeFromCart(cardTitle);
-                updateCartUI();
-            });
-
-            cartItem.appendChild(removeFromCartButton);
-            cartList.appendChild(cartItem);
-
-            totalCount += count;
-            totalCost += price * count;
+    function initializeCarousel() {
+        $('.slider-container').not('.slick-initialized').slick({
+            dots: true,
+            infinite: true,
+            speed: 300,
+            slidesToShow: 1,
+            adaptiveHeight: true
         });
-
-        cartCounter.textContent = totalCount;
-        cartCounterModal.textContent = totalCount;
-        orderTime.textContent = `Загальна вартість: ${totalCost} грн`;
     }
 
-    function addToCart(cardTitle, cardPrice) {
-        if (selectedCards.has(cardTitle)) {
-            const { count } = selectedCards.get(cardTitle);
-            selectedCards.set(cardTitle, { count: count + 1, price: cardPrice });
+    function addToCart(title, price) {
+        const current = selectedCards.get(title) || { count: 0, price: price };
+        current.count += 1;
+        selectedCards.set(title, current);
+        updateCartUI();
+    }
+
+    function removeFromCart(title) {
+        const current = selectedCards.get(title);
+        if (!current) return;
+        current.count -= 1;
+        if (current.count <= 0) {
+            selectedCards.delete(title);
         } else {
-            selectedCards.set(cardTitle, { count: 1, price: cardPrice });
+            selectedCards.set(title, current);
         }
+        updateCartUI();
     }
 
-    function removeFromCart(cardTitle) {
-        if (selectedCards.has(cardTitle)) {
-            const { count } = selectedCards.get(cardTitle);
-            if (count > 1) {
-                selectedCards.set(cardTitle, { count: count - 1, price: selectedCards.get(cardTitle).price });
-            } else {
-                selectedCards.delete(cardTitle);
-            }
-        }
+    function updateCartUI() {
+        cartList.innerHTML = '';
+        let total = 0;
+        selectedCards.forEach((value, key) => {
+            const item = document.createElement('li');
+            item.textContent = `${key}: ${value.count} шт. - ${value.price * value.count} грн`;
+            cartList.appendChild(item);
+            total += value.price * value.count;
+        });
+        cartCounter.textContent = Array.from(selectedCards.values()).reduce((acc, { count }) => acc + count, 0);
+        cartCounterModal.textContent = `Всего: ${total} грн`;
+        orderTime.textContent = `Общая стоимость: ${total} грн`;
     }
 
     function sendToTelegram() {
+        const message = generateTelegramMessage();
+        console.log('Отправка сообщения в Telegram: ', message);
+        // Замените 'YOUR_TELEGRAM_BOT_TOKEN' и 'YOUR_CHAT_ID' на ваши данные
         const telegramBotToken = '6852234273:AAGtNELD5wP9Kw-SOx_9l8uPKyS9fPj8aCk';
         const chatId = '720338217';
-
-        const message = generateTelegramMessage();
         const telegramApiUrl = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
 
         fetch(telegramApiUrl, {
@@ -181,45 +149,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 text: message,
             }),
         })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Telegram response:', data);
-            })
-            .catch(error => console.error('Error sending to Telegram:', error));
+        .then(response => response.json())
+        .then(data => console.log('Telegram response:', data))
+        .catch(error => console.error('Error sending to Telegram:', error));
     }
 
     function generateTelegramMessage() {
-        let message = 'Замовлення в корзині:\n\n';
-
-        let totalOrderAmount = 0;
-
-        selectedCards.forEach((data, cardTitle) => {
-            const { count, price } = data;
-            const itemAmount = price * count;
-            totalOrderAmount += itemAmount;
-
-            message += `${cardTitle}: ${count} шт. - ${itemAmount} грн\n`;
+        let message = 'Заказ:\n\n';
+        selectedCards.forEach((value, key) => {
+            message += `${key}: ${value.count} шт. - ${value.price * value.count} грн\n`;
         });
-
-        message += `\nЗагальна кількість: ${cartCounter.textContent} шт.`;
-        message += `\nЗагальна вартість замовлення: ${totalOrderAmount} грн`;
-
-        const customerName = customerNameInput.value.trim();
-        const customerPhone = customerPhoneInput.value.trim();
-        const deliveryAddress = deliveryAddressInput.value.trim();
-
-        if (customerName !== '') {
-            message += `\nІм'я клієнта: ${customerName}`;
-        }
-
-        if (customerPhone !== '') {
-            message += `\nТелефон клієнта: ${customerPhone}`;
-        }
-
-        if (deliveryAddress !== '') {
-            message += `\nАдреса доставки: ${deliveryAddress}`;
-        }
-
+        const total = Array.from(selectedCards.values()).reduce((acc, { count, price }) => acc + (count * price), 0);
+        message += `\nВсего товаров: ${cartCounter.textContent}, на сумму: ${total} грн.`;
+        message += `\nИмя клиента: ${customerNameInput.value}`;
+        message += `\nТелефон клиента: ${customerPhoneInput.value}`;
+        message += `\nАдрес доставки: ${deliveryAddressInput.value}`;
         return message;
     }
 });

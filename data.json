@@ -1,44 +1,102 @@
 [
   {
+    "category": "hot-dishes",
     "title": "Борщ Український",
     "description": "Традиційний український борщ зі смачними інгредієнтами.",
-    "photoFileName": [
-      "img/200/200_1.jpg",
-      "img/200/200_2.jpg",
-      "img/200/200_3.jpg",
-      "img/200/200_4.jpg",
-      "img/200/200_5.jpg"
-    ],
+    "photoFileName": ["img/200/200_1.jpg", "img/200/200_2.jpg", "img/200/200_3.jpg", "img/200/200_4.jpg", "img/200/200_5.jpg"],
     "price": 100,
     "difficulty": "Легкая",
     "time": "45 минут",
     "calories": "250 ккал"
   },
   {
-    "title": "Пельмені",
-    "description": "Смачні та соковиті пельмені з начинкою.",
-    "photoFileName": [
-            "img/202/202_2.jpg",
-      "img/202/202_3.jpg"
-      
-    ],
-    "price": 80,
-    "difficulty": "Середня",
-    "time": "30 минут",
-    "calories": "300 ккал"
+    "category": "hot-dishes",
+    "title": "Солянка сборная мясная",
+    "description": "Наваристый мясной суп с копченостями и маринованными огурцами.",
+    "photoFileName": ["img/hotDishes/solynka_1.jpg", "img/hotDishes/solynka_2.jpg", "img/hotDishes/solynka_3.jpg"],
+    "price": 120,
+    "difficulty": "Средняя",
+    "time": "1 час 20 минут",
+    "calories": "350 ккал"
   },
   {
-    "title": "Цезар з куркою",
-    "description": "Салат Цезар з додаванням соковитого курячого філе.",
-    "photoFileName": [
-      "img/201/201_1.jpg",
-      "img/201/201_2.jpg",
-      "img/201/201_3.jpg"
-      
-    ],
-    "price": 120,
+    "category": "hot-dishes",
+    "title": "Гуляш из говядины",
+    "description": "Плотное, насыщенное блюдо из говядины с соусом и специями.",
+    "photoFileName": ["img/hotDishes/gulash_1.jpg", "img/hotDishes/gulash_2.jpg"],
+    "price": 150,
+    "difficulty": "Сложная",
+    "time": "2 часа",
+    "calories": "450 ккал"
+  },
+  {
+    "category": "hot-dishes",
+    "title": "Уха рыбацкая",
+    "description": "Прозрачный рыбный суп с картофелем, морковью и свежей рыбой.",
+    "photoFileName": ["img/hotDishes/uha_1.jpg", "img/hotDishes/uha_2.jpg"],
+    "price": 90,
     "difficulty": "Легкая",
+    "time": "50 минут",
+    "calories": "200 ккал"
+  },
+  {
+    "category": "dumplings",
+    "title": "Вареники с картошкой",
+    "description": "Домашние вареники с нежной картофельной начинкой и луком.",
+    "photoFileName": ["img/dumplings/varSkartosh_1.jpg", "img/dumplings/varSkartosh_2.jpg"],
+    "price": 70,
+    "difficulty": "Средняя",
+    "time": "1 час 30 минут",
+    "calories": "310 ккал"
+  },
+  {
+    "category": "dumplings",
+    "title": "Вареники с вишней",
+    "description": "Сладкие вареники с сочной вишневой начинкой и сахарной пудрой.",
+    "photoFileName": ["img/dumplings/varSvishey_1.jpg", "img/dumplings/varSvishey_2.jpg"],
+    "price": 85,
+    "difficulty": "Легкая",
+    "time": "1 час 40 минут",
+    "calories": "290 ккал"
+  },
+  {
+    "category": "dumplings",
+    "title": "Пельмени домашние",
+    "description": "Пельмени с мясной начинкой, подаются с сметаной или уксусом.",
+    "photoFileName": ["img/dumplings/pelmenDom_1.jpg", "img/dumplings/pelmenDom_2.jpg"],
+    "price": 95,
+    "difficulty": "Средняя",
+    "time": "2 часа",
+    "calories": "330 ккал"
+  },
+  {
+    "category": "salads",
+    "title": "Греческий салат",
+    "description": "Легкий салат с помидорами, огурцами, брынзой и оливковым маслом.",
+    "photoFileName": ["img/salad/saladGreco_1.jpg", "img/salad/saladGreco_2.jpg"],
+    "price": 110,
+    "difficulty": "Легкая",
+    "time": "15 минут",
+    "calories": "180 ккал"
+  },
+  {
+    "category": "salads",
+    "title": "Салат с креветками",
+    "description": "Изысканный салат с морскими креветками, авокадо и зеленью.",
+    "photoFileName": ["img/salad/saladKrevetka_1.jpg", "img/salad/saladKrevetka_2.jpg"],
+    "price": 140,
+    "difficulty": "Средняя",
     "time": "20 минут",
-    "calories": "350 ккал"
+    "calories": "220 ккал"
+  },
+  {
+    "category": "salads",
+    "title": "Салат 'Нисуаз'",
+    "description": "Классический французский салат с тунцом, яйцами и анчоусами.",
+    "photoFileName": ["img/salad/saladNisuaz_1.jpg", "img/salad/saladNisuaz_2.jpg"],
+    "price": 130,
+    "difficulty": "Сложная",
+    "time": "30 минут",
+    "calories": "250 ккал"
   }
 ]
