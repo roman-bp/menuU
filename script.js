@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const closeModal = document.getElementById('closeModal');
     const cartButton = document.getElementById('cartButton');
     const cartList = document.getElementById('cartList');
-    const cartCounter = document.getElementById('cartCounter');
+    const cartCounter = document.getElementById('cartItemCount');
     const cartCounterModal = document.getElementById('cartCounterModal');
     const sendToTelegramButton = document.getElementById('sendToTelegram');
     const orderTime = document.getElementById('orderTime');
@@ -123,6 +123,11 @@ document.addEventListener('DOMContentLoaded', function () {
         selectedCards.forEach((value, key) => {
             const item = document.createElement('li');
             item.textContent = `${key}: ${value.count} шт. - ${value.price * value.count} грн`;
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'Удалить';
+            removeButton.classList.add('removeFromCart');
+            removeButton.dataset.title = key;
+            item.appendChild(removeButton);
             cartList.appendChild(item);
             total += value.price * value.count;
         });

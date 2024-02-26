@@ -11,21 +11,23 @@
 </head>
 
 <body>
-
     <div class="navbar">
+        <button id="cartButton" class="cart-button" onclick="openCartModal()">К<span id="cartItemCount">0</span></button>
         <a href="#hot-dishes">Гарячі страви</a>
         <a href="#dumplings">Холодні страви</a>
         <a href="#salads">Салати</a>
     </div>
 
+    <div class="allContainer">
+        <div id="cardContainer">
+            <!-- Ваші картки з фото будуть тут -->
+        </div>
+    </div>
 
-    <div id="cardContainer"></div>
-
-    <div id="cartButton" class="cart-button">Корзина<span id="cartCounter" class="cart-counter">0</span></div>
-
+    <!-- Модальне вікно корзини -->
     <div id="myModal" class="modal">
         <div class="modal-content">
-            <span id="closeModal" class="close">&times;</span>
+            <span id="closeModal" class="close" onclick="closeCartModal()">&times;</span>
             <div id="cartContent" class="cart-content">
                 <h2>Корзина</h2>
                 <ul id="cartList" class="cart-list"></ul>
@@ -49,6 +51,17 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script src="script.js"></script>
     <script src="server.js"></script>
+    <script>
+        function openCartModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "block";
+        }
+
+        function closeCartModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+    </script>
 </body>
 
 </html>

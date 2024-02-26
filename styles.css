@@ -3,21 +3,64 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
   background-color: #f0f0f0;
 }
 
-/* Стилі для карток */
+.navbar {
+  background-color: #007bff;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  left: 0; /* Вирівнюємо навбар зліва */
+  width: 100px; /* Змінюємо ширину навбару на 100px */
+  height: 100%; /* Змінюємо висоту навбару на 100% */
+  z-index: 1000; /* Додаємо z-index для збільшення пріоритету навбару */
+  display: flex; /* Змінюємо спосіб розміщення елементів на flex */
+  flex-direction: column; /* Змінюємо напрямок розміщення елементів на вертикальний */
+  justify-content: flex-start; /* Вирівнюємо елементи зверху вниз */
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px;
+  transition: background-color 0.3s;
+  width: 100%; /* Змінюємо ширину посилань на 100% */
+  text-align: center; /* Вирівнюємо текст по центру */
+}
+
+.navbar a:hover {
+  background-color: #ddd;
+  color: #007bff;
+}
+
+.allContainer {
+  margin-left: 100px; /* Зсув контейнера вправо для уникнення перекриття навбаром */
+  margin-top: 50px; /* Збільшуємо верхній відступ контейнера, щоб він не накладався на навбар */
+  display: flex;
+  justify-content: center;
+}
+
+#cardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 70px; /* Додаємо верхній маржин для уникнення накладання на навбар */
+}
+
 .card {
-  max-width: 300px;
+  max-width: 200px;
   border: 1px solid #ccc;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 16px;
+  margin: 16px auto; /* Змінено з margin: 16px; на margin: 16px auto; для вирівнювання по центру */
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: none; /* Змінено на "none", щоб відмінити будь-яку трансформацію при наведенні */
 }
 
 .card img {
@@ -32,7 +75,7 @@ body {
 
 h2 {
   color: #0ed880;
-  font-size: 24px;
+  font-size: 18px; /* Зменшуємо розмір шрифту для заголовку */
   font-weight: bold;
   text-align: center;
   margin: 10px 0;
@@ -40,151 +83,66 @@ h2 {
 
 p {
   margin: 10px;
+  font-size: 14px; /* Зменшуємо розмір шрифту для тексту */
 }
 
-.details {
-  display: none;
-  padding-top: 8px;
+/* Медіа-запити для зменшення розміру карток та шрифтів на мобільних пристроях */
+@media only screen and (max-width: 767px) {
+  .card {
+      max-width: 300px;
+      margin: 10px auto; /* Вирівнювання по центру */
+  }
+
+  .card-content h2 {
+      font-size: 18px;
+  }
 }
 
-a {
-  height: 5px;
-  color: #007bff;
-  text-decoration: none;
-  cursor: pointer;
-  margin: 10px 89px;
-}
+@media only screen and (min-width: 768px) {
+  .allContainer{
+    max-width: 1200px;
+  }
+  
+  .card {
+      max-width: 300px;
+      margin: 10px auto; /* Вирівнювання по центру */
+  }
 
-a:hover {
-  text-decoration: underline;
+  .card-content h2 {
+      font-size: 24px;
+  }
 }
-
-a:visited {
-  text-decoration: none;
-}
-
-/* Стилі для модального вікна */
+/* Стили для модального окна */
 .modal {
   display: none;
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  justify-content: center;
-  align-items: center;
+  z-index: 1001; /* Устанавливаем более высокий z-index, чтобы модальное окно отображалось поверх остального контента */
+  left: 50%; /* Располагаем модальное окно в середине горизонтально */
+  top: 50%; /* Располагаем модальное окно в середине вертикально */
+  transform: translate(-50%, -50%); /* Смещаем модальное окно назад на половину его ширины и высоты */
 }
 
-.modal-content {
-  background-color: #fefefe;
-  padding: 20px;
-  border-radius: 8px;
-  position: relative;
-}
-
-.close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-/* Стилі для кнопки Корзина */
+/* Стили для кнопки "Корзина" с отображением количества товаров */
 .cart-button {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: #007bff;
-  color: #fff;
+  background-color: #fff;
+  color: #007bff;
   padding: 10px;
-  cursor: pointer;
   border-radius: 4px;
-}
-
-/* Стилі для вмісту корзини */
-.cart-content {
-  text-align: center;
-}
-
-.cart-list {
-  list-style: none;
-  padding: 0;
-}
-
-.cart-list li {
-  margin-bottom: 10px;
+  cursor: pointer;
+  margin-right: 20px;
+  position: relative; /* Устанавливаем позицию относительно, чтобы корректно позиционировать количество товаров */
 }
 
 .cart-counter {
-  font-weight: bold;
-}
-
-/* Новий стиль для повідомлення підтвердження */
-.confirmation-message {
-  color: #0ed880;
-  font-weight: bold;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 14px;
   text-align: center;
-  margin-top: 20px;
-  display: none; /* Початково приховане */
+  line-height: 20px;
+  position: absolute; /* Абсолютное позиционирование для количества товаров */
+  top: -8px; /* Смещение количества товаров вверх на 8px */
+  right: -8px; /* Смещение количества товаров вправо на 8px */
 }
-
-
-/* Стилі для вертикального навбару */
-/* Стилі для вертикального навбару */
-.navbar {
-  width:auto; /* Встановіть бажану ширину тут */
-  background-color: #007bff;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  height: 500PX;
-}
-
-.navbar a {
-  display: block;
-  color: #fff;
-  text-align: center;
-  padding: 10px;
-  text-decoration: none;
-  margin: 10px;
-  width: fit-content;
-  transition: background-color 0.3s;
-}
-
-.navbar a:hover {
-  background-color: #ddd;
-  color: #007bff;
-}
-
-
-
-/*-агальні стилі для body:
-
-Встановлено основні параметри шрифту та фону для сторінки.
-Використовується Flexbox для центрування елементів на екрані.
-Стилі для карток (.card):
-
-Задані параметри для вигляду карточок товарів, такі як максимальна ширина, обводка, радіус кутів та тінь.
-Зображення в карточці має ширину 100% та автоматично обчислювану висоту.
-h2 має свої власні стилі, такі як колір, розмір шрифту та вирівнювання тексту.
-a стилізовані як посилання для показу додаткових деталей товару, але вони за замовчуванням приховані (display: none).
-Стилі для модального вікна та кнопки "Корзина" також визначені.
-Стилі для модального вікна (.modal та .modal-content):
-
-Використовуються для оформлення модального вікна, включаючи його розташування, фон та стилі контенту.
-Стилі для кнопки закриття (close).
-Стилі для кнопки "Корзина" (.cart-button):
-
-Визначають вигляд кнопки "Корзина", яка розташована у фіксованому положенні в правому верхньому куті сторінки.
-Стилі для вмісту корзини (.cart-content):
-
-Вирівнюють текст в центрі та задають стилі для списку товарів у корзині.
-Стилі для повідомлення підтвердження (.confirmation-message):
-
-Задають вигляд текстового повідомлення підтвердження, яке може відображатися в модальному вікні.
-Стилі для посилань (a):
-
-Визначають вигляд посилань, які використовуються для показу додаткових деталей товару. Приховані за замовчуванням.
-Ці стилі створюють чистий та привабливий вигляд сторінки та елементів інтерфейсу.-*/
