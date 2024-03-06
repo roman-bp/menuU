@@ -27,16 +27,23 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         sendToTelegramButton.addEventListener('click', sendToTelegram);
 
-        document.getElementById('cardContainer').addEventListener('click', function(event) {
+        document.getElementById('cardContainer').addEventListener('click', function (event) {
             if (event.target.tagName === 'BUTTON' && event.target.classList.contains('addToCart')) {
                 const title = event.target.dataset.title;
                 const price = parseFloat(event.target.dataset.price);
                 addToCart(title, price);
+            } else if (event.target.tagName === 'BUTTON' && event.target.classList.contains('detailsButton')) {
+                const card = event.target.closest('.card');
+                const difficulty = card.dataset.difficulty;
+                const time = card.dataset.time;
+                const calories = card.dataset.calories;
+                const description = card.querySelector('.card-description').textContent;
+                showCardDetails(description, difficulty, time, calories);
             }
         });
 
         document.querySelectorAll('.navbar a').forEach(link => {
-            link.addEventListener('click', function(event) {
+            link.addEventListener('click', function (event) {
                 event.preventDefault();
                 const category = this.getAttribute('href').substring(1);
                 loadAndDisplayCards(category);
@@ -51,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const filteredData = category === 'all' ? data : data.filter(card => card.category === category);
                 createCards(filteredData);
             })
-            .catch(error => console.error('Ошибка при загрузке данных из JSON:', error));
+            .catch(error => console.error('Помилка при завантаженні даних з JSON:', error));
     }
 
     function createCards(cardsData) {
@@ -67,6 +74,9 @@ document.addEventListener('DOMContentLoaded', function () {
     function createCardElement(cardData) {
         const card = document.createElement('div');
         card.className = 'card';
+        card.dataset.difficulty = cardData.difficulty;
+        card.dataset.time = cardData.time;
+        card.dataset.calories = cardData.calories;
         const imgContainer = document.createElement('div');
         imgContainer.className = 'slider-container';
         cardData.photoFileName.forEach(src => {
@@ -79,9 +89,10 @@ document.addEventListener('DOMContentLoaded', function () {
         cardContent.className = 'card-content';
         cardContent.innerHTML = `
             <h2>${cardData.title}</h2>
-            <p>${cardData.description}</p>
-            <p>Цена: ${cardData.price} грн</p>
-            <button class="addToCart" data-title="${cardData.title}" data-price="${cardData.price}">Добавить в корзину</button>
+            <h3>Ціна: ${cardData.price} грн</h3>
+            <button class="addToCart" data-title="${cardData.title}" data-price="${cardData.price}">Замовити</button>
+            <button class="detailsButton">Докладніше</button>
+            <p class="card-description" style="display: none;">${cardData.description}</p>
         `;
         card.appendChild(imgContainer);
         card.appendChild(cardContent);
@@ -127,6 +138,9 @@ document.addEventListener('DOMContentLoaded', function () {
             removeButton.textContent = 'Удалить';
             removeButton.classList.add('removeFromCart');
             removeButton.dataset.title = key;
+            removeButton.addEventListener('click', () => {
+                removeFromCart(key);
+            });
             item.appendChild(removeButton);
             cartList.appendChild(item);
             total += value.price * value.count;
@@ -138,10 +152,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function sendToTelegram() {
         const message = generateTelegramMessage();
-        console.log('Отправка сообщения в Telegram: ', message);
-        // Замените 'YOUR_TELEGRAM_BOT_TOKEN' и 'YOUR_CHAT_ID' на ваши данные
-        const telegramBotToken = '6852234273:AAGtNELD5wP9Kw-SOx_9l8uPKyS9fPj8aCk';
-        const chatId = '720338217';
+        console.log('Відправка повідомлення в Telegram: ', message);
+        // Замініть 'YOUR_TELEGRAM_BOT_TOKEN' і 'YOUR_CHAT_ID' на ваші дані
+        const telegramBotToken = 'ВАШ_ТОКЕН_БОТА';
+        const chatId = 'ВАШ_CHAT_ID';
         const telegramApiUrl = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
 
         fetch(telegramApiUrl, {
@@ -154,21 +168,32 @@ document.addEventListener('DOMContentLoaded', function () {
                 text: message,
             }),
         })
-        .then(response => response.json())
-        .then(data => console.log('Telegram response:', data))
-        .catch(error => console.error('Error sending to Telegram:', error));
+            .then(response => response.json())
+            .then(data => console.log('Відповідь від Telegram:', data))
+            .catch(error => console.error('Помилка відправлення в Telegram:', error));
     }
 
     function generateTelegramMessage() {
-        let message = 'Заказ:\n\n';
+        let message = 'Замовлення:\n\n';
         selectedCards.forEach((value, key) => {
             message += `${key}: ${value.count} шт. - ${value.price * value.count} грн\n`;
         });
         const total = Array.from(selectedCards.values()).reduce((acc, { count, price }) => acc + (count * price), 0);
-        message += `\nВсего товаров: ${cartCounter.textContent}, на сумму: ${total} грн.`;
-        message += `\nИмя клиента: ${customerNameInput.value}`;
-        message += `\nТелефон клиента: ${customerPhoneInput.value}`;
-        message += `\nАдрес доставки: ${deliveryAddressInput.value}`;
+        message += `\nВсього товарів: ${cartCounter.textContent}, на суму: ${total} грн.`;
+        message += `\nІм'я клієнта: ${customerNameInput.value}`;
+        message += `\nТелефон клієнта: ${customerPhoneInput.value}`;
+        message += `\nАдреса доставки: ${deliveryAddressInput.value}`;
         return message;
     }
+
+    function showCardDetails(description, difficulty, time, calories) {
+        const details = `
+            Опис: ${description}
+            Складність: ${difficulty}
+            Час приготування: ${time}
+            Калорії: ${calories}
+        `;
+        alert(details);
+    }
+    
 });

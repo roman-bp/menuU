@@ -6,47 +6,69 @@ body {
   background-color: #f0f0f0;
 }
 
-.navbar {
+.container {
+  margin: 0 auto;
+}
+
+.headerContainer,
+.navbar-container,
+.main-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Стилі для навігаційної панелі */
+.navbar-container {
+  float: left;
+  width: 100px;
+  height: 100vh;
   background-color: #007bff;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  left: 0; /* Вирівнюємо навбар зліва */
-  width: 100px; /* Змінюємо ширину навбару на 100px */
-  height: 100%; /* Змінюємо висоту навбару на 100% */
-  z-index: 1000; /* Додаємо z-index для збільшення пріоритету навбару */
-  display: flex; /* Змінюємо спосіб розміщення елементів на flex */
-  flex-direction: column; /* Змінюємо напрямок розміщення елементів на вертикальний */
-  justify-content: flex-start; /* Вирівнюємо елементи зверху вниз */
 }
 
 .navbar a {
   color: #fff;
   text-decoration: none;
   padding: 10px;
+  display: block;
   transition: background-color 0.3s;
-  width: 100%; /* Змінюємо ширину посилань на 100% */
-  text-align: center; /* Вирівнюємо текст по центру */
+  text-align: center;
 }
 
-.navbar a:hover {
-  background-color: #ddd;
-  color: #007bff;
+/* Медіа запити для адаптивності */
+@media only screen and (min-width: 320px) and (max-width: 425px) {
+  .navbar-container {
+      width: 60px;
+  }
+
+  .main-container {
+      margin-left: 60px;
+  }
+
+  .allContainer,
+  .container {
+      max-width: calc(100% - 60px);
+  }
 }
 
-.allContainer {
-  margin-left: 100px; /* Зсув контейнера вправо для уникнення перекриття навбаром */
-  margin-top: 50px; /* Збільшуємо верхній відступ контейнера, щоб він не накладався на навбар */
-  display: flex;
-  justify-content: center;
+@media only screen and (min-width: 1201px) {
+  .container,
+  .headerContainer,
+  .allContainer {
+      max-width: 1200px;
+      margin: 0 auto;
+  }
 }
 
+/* Стилі для карток продуктів */
 #cardContainer {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 70px; /* Додаємо верхній маржин для уникнення накладання на навбар */
+  margin-top: 10px;
 }
 
 .card {
@@ -55,94 +77,65 @@ body {
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 16px auto; /* Змінено з margin: 16px; на margin: 16px auto; для вирівнювання по центру */
+  margin: 16px;
   transition: all 0.3s ease;
-}
-
-.card:hover {
-  transform: none; /* Змінено на "none", щоб відмінити будь-яку трансформацію при наведенні */
 }
 
 .card img {
   width: 100%;
-  height: auto;
+  height: 170px;
   border-bottom: 1px solid #ccc;
 }
 
-.card-content {
-  padding: 16px;
+.card h3,
+.card p {
+  padding: 0 10px;
 }
 
-h2 {
-  color: #0ed880;
-  font-size: 18px; /* Зменшуємо розмір шрифту для заголовку */
-  font-weight: bold;
-  text-align: center;
-  margin: 10px 0;
-}
-
-p {
-  margin: 10px;
-  font-size: 14px; /* Зменшуємо розмір шрифту для тексту */
-}
-
-/* Медіа-запити для зменшення розміру карток та шрифтів на мобільних пристроях */
-@media only screen and (max-width: 767px) {
-  .card {
-      max-width: 300px;
-      margin: 10px auto; /* Вирівнювання по центру */
-  }
-
-  .card-content h2 {
-      font-size: 18px;
-  }
-}
-
-@media only screen and (min-width: 768px) {
-  .allContainer{
-    max-width: 1200px;
-  }
-  
-  .card {
-      max-width: 300px;
-      margin: 10px auto; /* Вирівнювання по центру */
-  }
-
-  .card-content h2 {
-      font-size: 24px;
-  }
-}
-/* Стили для модального окна */
+/* Стилі для модальних вікон */
 .modal {
   display: none;
   position: fixed;
-  z-index: 1001; /* Устанавливаем более высокий z-index, чтобы модальное окно отображалось поверх остального контента */
-  left: 50%; /* Располагаем модальное окно в середине горизонтально */
-  top: 50%; /* Располагаем модальное окно в середине вертикально */
-  transform: translate(-50%, -50%); /* Смещаем модальное окно назад на половину его ширины и высоты */
-}
-
-/* Стили для кнопки "Корзина" с отображением количества товаров */
-.cart-button {
+  z-index: 1001;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 400px;
   background-color: #fff;
-  color: #007bff;
-  padding: 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-right: 20px;
-  position: relative; /* Устанавливаем позицию относительно, чтобы корректно позиционировать количество товаров */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.cart-counter {
-  background-color: red;
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Стилі для кнопок */
+.infoButton,
+.cart-button {
+  background-color: #007bff;
   color: white;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  font-size: 14px;
-  text-align: center;
-  line-height: 20px;
-  position: absolute; /* Абсолютное позиционирование для количества товаров */
-  top: -8px; /* Смещение количества товаров вверх на 8px */
-  right: -8px; /* Смещение количества товаров вправо на 8px */
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;
+  margin: 10px 0;
+}
+
+.infoButton:hover,
+.cart-button:hover {
+  background-color: #0056b3;
 }

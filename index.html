@@ -11,17 +11,25 @@
 </head>
 
 <body>
-    <div class="navbar">
-        <button id="cartButton" class="cart-button" onclick="openCartModal()">К<span id="cartItemCount">0</span></button>
-        <a href="#hot-dishes">Гарячі страви</a>
-        <a href="#dumplings">Холодні страви</a>
-        <a href="#salads">Салати</a>
-    </div>
+    <HEADER class="page">
+        <div class="headerContainer"></div>
+    </HEADER>
 
-    <div class="allContainer">
-        <div id="cardContainer">
-            <!-- Ваші картки з фото будуть тут -->
+    <div class="container">
+        <div class="navbar-container">
+            <div class="navbar">
+                <button id="cartButton" class="cart-button" onclick="openCartModal()">К<span id="cartItemCount">0</span></button>
+                <a href="#hot-dishes">Гарячі страви</a>
+                <a href="#dumplings">Холодні страви</a>
+                <a href="#salads">Салати</a>
+            </div>
         </div>
+
+        <main class="main-container" id="mainContainer">
+            <div id="cardContainer">
+                <!-- Карточки продуктів будуть тут -->
+            </div>
+        </main>
     </div>
 
     <!-- Модальне вікно корзини -->
@@ -40,7 +48,7 @@
                 <!-- Додано новий елемент для відображення дати та часу замовлення -->
                 <p id="orderTime" class="order-time"></p>
                 <!-- Кінець нового елементу -->
-                <!-- Додано новийау елемент для відправки замовлення в телеграм -->
+                <!-- Додано новий елемент для відправки замовлення в телеграм -->
                 <button id="sendToTelegram">Відправити замовлення в Telegram</button>
                 <!-- Кінець нового елементу -->
             </div>
