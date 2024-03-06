@@ -49,6 +49,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 loadAndDisplayCards(category);
             });
         });
+
+        cartList.addEventListener('click', function (event) {
+            if (event.target.tagName === 'BUTTON' && event.target.classList.contains('removeFromCart')) {
+                const title = event.target.dataset.title;
+                removeFromCart(title);
+            }
+        });
     }
 
     function loadAndDisplayCards(category) {
@@ -138,9 +145,6 @@ document.addEventListener('DOMContentLoaded', function () {
             removeButton.textContent = 'Удалить';
             removeButton.classList.add('removeFromCart');
             removeButton.dataset.title = key;
-            removeButton.addEventListener('click', () => {
-                removeFromCart(key);
-            });
             item.appendChild(removeButton);
             cartList.appendChild(item);
             total += value.price * value.count;
@@ -154,8 +158,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const message = generateTelegramMessage();
         console.log('Відправка повідомлення в Telegram: ', message);
         // Замініть 'YOUR_TELEGRAM_BOT_TOKEN' і 'YOUR_CHAT_ID' на ваші дані
-        const telegramBotToken = 'ВАШ_ТОКЕН_БОТА';
-        const chatId = 'ВАШ_CHAT_ID';
+        const telegramBotToken = '6852234273:AAGtNELD5wP9Kw-SOx_9l8uPKyS9fPj8aCk';
+        const chatId = '720338217';
         const telegramApiUrl = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
 
         fetch(telegramApiUrl, {
@@ -193,7 +197,18 @@ document.addEventListener('DOMContentLoaded', function () {
             Час приготування: ${time}
             Калорії: ${calories}
         `;
-        alert(details);
+        const detailsContent = document.getElementById('detailsContent');
+        detailsContent.innerHTML = details;
+        openDetailsModal();
     }
-    
+
+    function openDetailsModal() {
+        const detailsModal = document.getElementById('detailsModal');
+        detailsModal.style.display = 'block';
+    }
+
+    function closeDetailsModal() {
+        const detailsModal = document.getElementById('detailsModal');
+        detailsModal.style.display = 'none';
+    }
 });

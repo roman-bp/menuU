@@ -13,10 +13,7 @@ body {
 .headerContainer,
 .navbar-container,
 .main-container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-}
+  max-width: 1300px;}
 
 /* Стилі для навігаційної панелі */
 .navbar-container {

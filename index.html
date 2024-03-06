@@ -55,6 +55,16 @@
         </div>
     </div>
 
+    <!-- Модальне вікно докладностей продукта -->
+    <div id="detailsModal" class="modal">
+        <div class="modal-content">
+            <span id="closeDetailsModal" class="close" onclick="closeDetailsModal()">&times;</span>
+            <div id="detailsContent" class="details-content">
+                <!-- Контент докладностей буде тут -->
+            </div>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script src="script.js"></script>
@@ -69,6 +79,20 @@
             var modal = document.getElementById("myModal");
             modal.style.display = "none";
         }
+
+        function openDetailsModal() {
+            var modal = document.getElementById("detailsModal");
+            modal.style.display = "block";
+        }
+
+        function closeDetailsModal() {
+            var modal = document.getElementById("detailsModal");
+            modal.style.display = "none";
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // ваш JavaScript код зберігається тут
+        });
     </script>
 </body>
 
