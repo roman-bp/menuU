@@ -11,7 +11,7 @@
 
 .card {
   max-width: 200px;
-  border: 1px solid #4A7C59;
+  border: 1px solid #3498db;
   border-radius: 8px;
   overflow: hidden;
   -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -19,7 +19,7 @@
   margin: 3px;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
-  background-color: #C8D5B9;
+  background-color: #2c3e50;
   font-family: "Caudex", serif;
 }
 
@@ -39,6 +39,6 @@
 .card h3,
 .card p {
   padding: 0 10px;
-  color: #030b05;
+  color: #ecf0f1;
   text-align: left;
 }/*# sourceMappingURL=cards.css.map */
