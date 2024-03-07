@@ -1,0 +1,28 @@
+@import 'variables';
+
+// base.scss
+
+// Reset
+@import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css');
+
+// Base styles
+body {
+    font-family: $body-font;
+    margin: 0;
+    padding: 0;
+    background-color: $background-color;
+    color: $text-color;
+    text-align: center;
+}
+
+.container {
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.headerContainer,
+.navbar-container,
+.main-container {
+    max-width: $container-max-width;
+    margin: 0 auto;
+}

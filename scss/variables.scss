@@ -1,0 +1,24 @@
+// variables.scss
+
+// Colors
+$primary-color: #4A7C59;
+$secondary-color: #C8D5B9;
+$accent-color: #FAF3DD;
+$background-color: #96948e;
+$text-color: #030b05;
+
+// Fonts
+$body-font: 'Caudex', serif;
+$heading-font: 'Chivo', sans-serif;
+$link-font: 'Hind Guntur', sans-serif;
+
+// Sizes
+$container-max-width: 1300px;
+$navbar-width: 60px;
+$modal-max-width: 500px;
+$card-max-width: 200px;
+
+// Shadows
+$box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+$modal-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+$card-hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);

@@ -1,0 +1,21 @@
+@media only screen and (min-width: 320px) and (max-width: 425px) {
+  .navbar-container {
+    width: 60px;
+  }
+  .card {
+    max-width: 250px;
+  }
+  .container,
+  .headerContainer,
+  .main-container {
+    max-width: calc(100% - 60px);
+  }
+}
+@media only screen and (min-width: 1201px) {
+  .container,
+  .headerContainer,
+  .main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}/*# sourceMappingURL=media-queries.css.map */

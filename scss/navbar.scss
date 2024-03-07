@@ -1,0 +1,30 @@
+@import 'variables';
+// navbar.scss
+
+.navbar-container {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: $navbar-width;
+    height: 100vh;
+    background-color: $secondary-color;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: $box-shadow;
+}
+
+.navbar a {
+    font-size: 16px;
+    line-height: 1.2;
+    color: $text-color;
+    text-decoration: none;
+    padding: 3px;
+    display: block;
+    transition: background-color 0.3s;
+    font-family: $link-font;
+}
+
+.navbar a:hover {
+    background-color: $primary-color;
+    color: $accent-color;
+}

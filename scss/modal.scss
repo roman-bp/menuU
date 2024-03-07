@@ -1,0 +1,30 @@
+@import 'variables';
+
+// modal.scss
+
+.modal,
+#detailsModal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: $modal-max-width;
+    background-color: $secondary-color;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: $modal-box-shadow;
+    color: $text-color;
+    font-family: $heading-font;
+}
+
+.modal .close:hover,
+.modal .close:focus,
+#detailsModal .close:hover,
+#detailsModal .close:focus {
+    color: $accent-color;
+    text-decoration: none;
+    cursor: pointer;
+}

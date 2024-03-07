@@ -1,0 +1,29 @@
+.navbar-container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 60px;
+  height: 100vh;
+  background-color: #C8D5B9;
+  padding: 10px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar a {
+  font-size: 16px;
+  line-height: 1.2;
+  color: #030b05;
+  text-decoration: none;
+  padding: 3px;
+  display: block;
+  -webkit-transition: background-color 0.3s;
+  transition: background-color 0.3s;
+  font-family: "Hind Guntur", sans-serif;
+}
+
+.navbar a:hover {
+  background-color: #4A7C59;
+  color: #FAF3DD;
+}/*# sourceMappingURL=navbar.css.map */

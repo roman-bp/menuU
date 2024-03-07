@@ -1,0 +1,28 @@
+.modal,
+#detailsModal {
+  display: none;
+  position: fixed;
+  z-index: 1001;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 500px;
+  background-color: #C8D5B9;
+  padding: 20px;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: #030b05;
+  font-family: "Chivo", sans-serif;
+}
+
+.modal .close:hover,
+.modal .close:focus,
+#detailsModal .close:hover,
+#detailsModal .close:focus {
+  color: #FAF3DD;
+  text-decoration: none;
+  cursor: pointer;
+}/*# sourceMappingURL=modal.css.map */
