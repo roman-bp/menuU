@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/style.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
     <title>Карточка з фото</title>
@@ -18,7 +18,12 @@
     <div class="container">
         <div class="navbar-container">
             <div class="navbar">
-                <button id="cartButton" class="cart-button" onclick="openCartModal()">К<span id="cartItemCount">0</span></button>
+                <button id="cartButton" class="cart-button" onclick="openCartModal()"><img src="svg/cart.svg" width="26" height="26" fill="currentColor" alt="Cart"><span id="cartItemCount">0</span></button>
+                    
+                       
+                      
+                
+               
                 <a href="#hot-dishes">Гарячі страви</a>
                 <a href="#dumplings">Холодні страви</a>
                 <a href="#salads">Салати</a>
@@ -68,7 +73,7 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script src="script.js"></script>
-    <script src="server.js"></script>
+   
     <script>
         function openCartModal() {
             var modal = document.getElementById("myModal");

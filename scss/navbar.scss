@@ -1,0 +1,55 @@
+@import 'variables';
+
+.navbar-container {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: $navbar-width; /* например, 250px */
+    height: 100vh;
+    background-color: $secondary-color;
+    padding: 20px;
+    border-radius: 0 10px 10px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.navbar a {
+    font-size: 14px;
+    line-height: 1;
+    color: $text-color;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+    transition: background-color 0.3s, color 0.3s;
+    margin: 5px 0;
+    border-radius: 5px;
+    font-family: $link-font;
+}
+
+.navbar a:hover, .navbar a:focus {
+    background-color: darken($button-color, 10%);
+    color: $text-color;
+    transform: scale(1.05);
+}
+
+.cart-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    background-color: $button-color;
+    color: $button-text-color;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cart-button:hover {
+    background-color: darken($button-color, 10%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

@@ -1,0 +1,30 @@
+// variables.scss
+
+// Colors
+$primary-color: #3498db; // Синий
+$secondary-color: #2c3e50; // Тёмно-синий
+$accent-color: #e74c3c; // Красный
+$text-color: #ecf0f1; // Светло-серый
+$button-color: #2c3e50; // Ярко-синий
+$button-text-color: #ffffff; // Белый
+$background-color: #b2b2b2; // серый
+
+// Fonts
+$body-font: 'Caudex', serif;
+$heading-font: 'Chivo', sans-serif;
+$link-font: 'Hind Guntur', sans-serif;
+
+// Sizes
+$container-max-width: 1300px;
+$navbar-width: 60px;
+$modal-max-width: 500px;
+$card-max-width: 200px;
+
+// Shadows
+$box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+$modal-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+$card-hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+
+@function darken($color, $amount) {
+    @return mix(black, $color, $amount);
+  }

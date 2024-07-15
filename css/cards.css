@@ -1,0 +1,44 @@
+#cardContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.card {
+  max-width: 200px;
+  border: 1px solid #3498db;
+  border-radius: 8px;
+  overflow: hidden;
+  -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 3px;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  background-color: #2c3e50;
+  font-family: "Caudex", serif;
+}
+
+.card:hover {
+  -webkit-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card img {
+  width: 100%;
+  height: 150px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.card h2,
+.card h3,
+.card p {
+  padding: 0 10px;
+  color: #ecf0f1;
+  text-align: left;
+}/*# sourceMappingURL=cards.css.map */
