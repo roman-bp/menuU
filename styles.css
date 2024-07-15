@@ -6,7 +6,7 @@ body {
     font-family: 'Hind Guntur', sans-serif; /* Змінено на Hind Guntur як основний шрифт для тексту */
     margin: 0;
     padding: 0;
-    background-color: #FBFADA; /* Світло-кремовий фон */
+    background-color: #09081D; /* Світло-кремовий фон */
     color: #436850; /* Темно-зелений колір тексту */
     text-align: center; /* Вирівнювання тексту по центру */
 }
@@ -43,7 +43,7 @@ body {
 .navbar a {
     font-size: 16px;
     line-height: 1.2;
-    color: #12372a; /* Темно-зелений колір тексту */
+    color: #09081D; /* Темно-зелений колір тексту */
     text-decoration: none;
     padding: 3px;
     display: block;
@@ -58,8 +58,8 @@ body {
 
 /* Стилі для кнопок */
 button {
-    background-color: #ADBC9F; /* Світло-зелений колір */
-    color: #12372a; /* Темно-зелений колір тексту */
+    background-color: #e2fa07; /* Світло-зелений колір */
+    color: #09081D; /* Темно-зелений колір тексту */
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
@@ -91,13 +91,13 @@ p {
 
 .card {
     max-width: 250px;
-    border: 3px solid #e76626; /* Темно-зелений бордюр */
+   /*/ border: 3px solid ; /* Темно-зелений бордюр */
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: 10px;
     transition: all 0.3s ease;
-    background-color: #ADBC9F; /* Світло-зелений фон */
+    background-color: #1a2545; /* Світло-зелений фон */
     font-family: 'Caudex', serif; /* Підтримка шрифту Caudex для тексту в картках */
     text-align: center;
 }
@@ -110,7 +110,7 @@ p {
     width: 100%;
     height: 150px; /* Фіксована висота для уніфікації зображень */
     object-fit: cover; /* Гарантує, що зображення покриє доступний простір без спотворення */
-    border:  #e76626 solid 3px;
+    //border:  #f0ecaf solid 3px;
     margin: 5px;
     border-radius: 8px;
 }
@@ -118,13 +118,17 @@ p {
 .card h2,
 .card h3,
 .card p {
-    color: #12372a; /* Темно-зелений колір тексту */
+    font-size: 24px;
+    color: #ffffff; /* Темно-зелений колір тексту */
     text-align: center; /* Вирівнювання тексту по центру */
     margin: 10px 0; /* Додавання вертикальних відступів між елементами */
 }
-.card h3{color: #e76626;
+.card h3{color:   #ffffff;
+    font-size: 18px;
+    
 
 }
+
 .priceContainer {
     display: flex;
     justify-content: center;
