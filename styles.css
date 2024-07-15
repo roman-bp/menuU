@@ -34,7 +34,7 @@ body {
     top: 0; /* Розташування від верхнього краю */
     width: 60px; /* Ширина навігаційної панелі залишається незмінною */
     height: 100vh; /* Висота відповідає висоті вікна переглядача */
-    background-color: #ADBC9F; /* Світло-зелений колір, як і було задано */
+    background-color: #1a2545; /* Світло-зелений колір, як і було задано */
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -43,7 +43,7 @@ body {
 .navbar a {
     font-size: 16px;
     line-height: 1.2;
-    color: #09081D; /* Темно-зелений колір тексту */
+    color: #ffffff; /* Темно-зелений колір тексту */
     text-decoration: none;
     padding: 3px;
     display: block;
