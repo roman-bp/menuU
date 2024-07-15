@@ -118,7 +118,7 @@ p {
 .card h2,
 .card h3,
 .card p {
-    font-size: 24px;
+    font-size: 17px;
     color: #ffffff; /* Темно-зелений колір тексту */
     text-align: center; /* Вирівнювання тексту по центру */
     margin: 10px 0; /* Додавання вертикальних відступів між елементами */
