@@ -92,11 +92,10 @@ document.addEventListener('DOMContentLoaded', function () {
             img.alt = cardData.title;
             imgContainer.appendChild(img);
         });
-        const cardContent = document.createElement('div');
-        cardContent.className = 'card-content';
+        const cardContent = document.createElement('div');       cardContent.className = 'card-content';
         cardContent.innerHTML = `
             <h2>${cardData.title}</h2>
-            <h3>Ціна: ${cardData.price} грн</h3>
+            <h3 class="priceOnCart"> ${cardData.price} грн</h3>
             <button class="addToCart" data-title="${cardData.title}" data-price="${cardData.price}">Замовити</button>
             <button class="detailsButton">Докладніше</button>
             <p class="card-description" style="display: none;">${cardData.description}</p>
@@ -142,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const item = document.createElement('li');
             item.textContent = `${key}: ${value.count} шт. - ${value.price * value.count} грн`;
             const removeButton = document.createElement('button');
-            removeButton.textContent = 'Удалить';
+            removeButton.textContent = 'відмінити';
             removeButton.classList.add('removeFromCart');
             removeButton.dataset.title = key;
             item.appendChild(removeButton);
@@ -150,8 +149,8 @@ document.addEventListener('DOMContentLoaded', function () {
             total += value.price * value.count;
         });
         cartCounter.textContent = Array.from(selectedCards.values()).reduce((acc, { count }) => acc + count, 0);
-        cartCounterModal.textContent = `Всего: ${total} грн`;
-        orderTime.textContent = `Общая стоимость: ${total} грн`;
+        //cartCounterModal.textContent = `Всего: ${total} грн`;
+        orderTime.textContent = `До оплати: ${total} грн`;
     }
 
     function sendToTelegram() {

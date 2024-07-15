@@ -109,7 +109,12 @@ button:hover {
     color: #030b05; /* Темно-зелений колір тексту */
     text-align: left; /* Вирівнювання тексту вліво */
 }
-
+.priceContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1; /* Позволяет элементу занимать доступное пространство */
+  }
 /* Додаткові стилі для модальних вікон */
 .modal,
 #detailsModal {
@@ -147,10 +152,7 @@ button:hover {
       max-width: 250px;
     }
 
-    .main-container,
-    .container {
-       /* margin-left: 70px; /* Враховуючи зміщення для мобільних пристроїв */
-    }
+   
 
     .container,
     .headerContainer,
