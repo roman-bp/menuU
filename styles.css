@@ -1,13 +1,13 @@
 /* Підключення шрифтів */
-@import url('https://fonts.googleapis.com/css2?family=Chivo:wght@400;700&family=Caudex:ital,wght@0,400;0,700;1,400;1,700&family=Hind+Guntur:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chivo:wght@400;700&family=Caudex:ital,wght@0,400;0,700;1,400;1,700&family=Hind+Guntur:wght@400;600&family=Lobster&display=swap');
 
 /* Загальні стилі */
 body {
-    font-family: 'Caudex', serif; /* Змінено на Caudex як основний шрифт для тексту */
+    font-family: 'Hind Guntur', sans-serif; /* Змінено на Hind Guntur як основний шрифт для тексту */
     margin: 0;
     padding: 0;
-    background-color: #96948e; /* Світло-кремовий фон */
-    color: #4A7C59; /* Темно-зелений колір тексту */
+    background-color: #FBFADA; /* Світло-кремовий фон */
+    color: #436850; /* Темно-зелений колір тексту */
     text-align: center; /* Вирівнювання тексту по центру */
 }
 
@@ -34,7 +34,7 @@ body {
     top: 0; /* Розташування від верхнього краю */
     width: 60px; /* Ширина навігаційної панелі залишається незмінною */
     height: 100vh; /* Висота відповідає висоті вікна переглядача */
-    background-color: #C8D5B9; /* Світло-зелений колір, як і було задано */
+    background-color: #ADBC9F; /* Світло-зелений колір, як і було задано */
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -43,7 +43,7 @@ body {
 .navbar a {
     font-size: 16px;
     line-height: 1.2;
-    color: #0b0b0a; /* Світло-кремовий колір тексту */
+    color: #12372a; /* Темно-зелений колір тексту */
     text-decoration: none;
     padding: 3px;
     display: block;
@@ -52,25 +52,34 @@ body {
 }
 
 .navbar a:hover {
-    background-color: #4A7C59; /* Темно-зелений колір при наведенні */
-    color: #FAF3DD;
+    background-color: #436850; /* Темно-зелений колір при наведенні */
+    color: #FBFADA;
 }
 
 /* Стилі для кнопок */
 button {
-    background-color: #C8D5B9; /* Світло-зелений колір */
-    color: #4A7C59; /* Темно-зелений колір тексту */
+    background-color: #ADBC9F; /* Світло-зелений колір */
+    color: #12372a; /* Темно-зелений колір тексту */
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    font-family: 'Chivo', sans-serif; /* Додавання шрифту Chivo для кнопок */
+    font-family: 'Lobster', cursive; /* Додавання шрифту Lobster для кнопок */
 }
 
 button:hover {
-    background-color: #4A7C59; /* Темно-зелений колір */
-    color: #FAF3DD; /* Світло-кремовий колір тексту */
+    background-color: #436850; /* Темно-зелений колір */
+    color: #FBFADA; /* Світло-кремовий колір тексту */
+}
+
+/* Стилі для заголовків та параграфів */
+h1, h2, h3 {
+    font-family: 'Chivo', sans-serif; /* Додавання шрифту Chivo для заголовків */
+}
+
+p {
+    font-family: 'Caudex', serif; /* Додавання шрифту Caudex для параграфів */
 }
 
 /* Стилі для карток продуктів */
@@ -81,15 +90,16 @@ button:hover {
 }
 
 .card {
-    max-width: 200px;
-    border: 1px solid #19210e; /* Темно-зелений бордюр */
+    max-width: 250px;
+    border: 1px solid #12372a; /* Темно-зелений бордюр */
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 3px;
+    margin: 10px;
     transition: all 0.3s ease;
-    background-color: #C8D5B9; /* Світло-зелений фон */
+    background-color: #ADBC9F; /* Світло-зелений фон */
     font-family: 'Caudex', serif; /* Підтримка шрифту Caudex для тексту в картках */
+    text-align: center;
 }
 
 .card:hover {
@@ -100,25 +110,27 @@ button:hover {
     width: 100%;
     height: 150px; /* Фіксована висота для уніфікації зображень */
     object-fit: cover; /* Гарантує, що зображення покриє доступний простір без спотворення */
-    margin: 10px;
-    border: #19210e solid 1px;
+    border: #12372a solid 1px;
     border-radius: 8px;
-
 }
 
 .card h2,
 .card h3,
 .card p {
-    padding: 0 10px;
-    color: #030b05; /* Темно-зелений колір тексту */
-    text-align: left; /* Вирівнювання тексту вліво */
+    color: #12372a; /* Темно-зелений колір тексту */
+    text-align: center; /* Вирівнювання тексту по центру */
+    margin: 10px 0; /* Додавання вертикальних відступів між елементами */
+}
+.card h3{color: #e76626
+
 }
 .priceContainer {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-grow: 1; /* Позволяет элементу занимать доступное пространство */
-  }
+}
+
 /* Додаткові стилі для модальних вікон */
 .modal,
 #detailsModal {
@@ -130,11 +142,11 @@ button:hover {
     transform: translate(-50%, -50%);
     width: 80%;
     max-width: 500px;
-    background-color: #C8D5B9; /* Світло-зелений фон */
+    background-color: #ADBC9F; /* Світло-зелений фон */
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    color: #4A7C59; /* Темно-зелений колір тексту */
+    color: #436850; /* Темно-зелений колір тексту */
     font-family: 'Chivo', sans-serif; /* Використання шрифту Chivo для модальних вікон */
 }
 
@@ -142,7 +154,7 @@ button:hover {
 .close:focus,
 #detailsModal .close:hover,
 #detailsModal .close:focus {
-    color: #FAF3DD; /* Світло-кремовий колір тексту */
+    color: #FBFADA; /* Світло-кремовий колір тексту */
     text-decoration: none;
     cursor: pointer;
 }
@@ -152,21 +164,15 @@ button:hover {
     .navbar-container {
         width: 60px;
     }
-    .card{
-      max-width: 250px;
+    .card {
+        max-width: 250px;
     }
-
-   
-
     .container,
     .headerContainer,
     .main-container {
         max-width: calc(100% - 60px); /* Коригування ширини контейнерів */
     }
 }
-
-
-
 
 @media only screen and (min-width: 1201px) {
     .container,
